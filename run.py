@@ -1,11 +1,12 @@
 import json
+from datetime import datetime
 from flask import Flask, request, jsonify
 
 from gdocs_ques.qa_gen_for_docs import load_model, get_qa
 
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
+app.secret_key = '3cf156a6e05348bc93387228b70e56ab'
 
 
 def send_error_response(message):
@@ -25,6 +26,15 @@ def check_fields(data):
     return ''
 
 
+def print_log(message):
+    print(f'[{datetime.now().strftime("%m:%d:%y - %H:%M:%S")}] {message}')
+
+
+@app.before_first_request
+def get_qa_model():
+    app.model = load_model()
+
+
 @app.route('/', methods=['GET'])
 def index():
     return jsonify({'result': 'success'})
@@ -32,6 +42,7 @@ def index():
 
 @app.route('/', methods=['POST'])
 def hello():
+    print_log('Request Received')
     if len(request.data) == 0:
         return send_error_response('No data sent.')
 
@@ -51,12 +62,13 @@ def hello():
     if answer_style not in ['all', 'multiple_choice', 'sentence']:
         return send_error_response('answer style can only be of type "all", "multiple_choice" or "sentence".')
 
-    model = load_model()
-    qa_pairs = get_qa(model, data['text'], num_questions, answer_style)
+    print_log('Generation QAs')
+    qa_pairs = get_qa(app.model, data['text'], num_questions, answer_style)
+
+    print_log('Sending response')
 
     return jsonify({'result': 'success', 'qa_pairs': qa_pairs})
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
-
