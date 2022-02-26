@@ -42,8 +42,17 @@ def hello():
     if missing_field != '':
         return send_error_response(f'{missing_field} missing for data.')
 
+    try:
+        num_questions = int(float(data['num_questions']))
+    except ValueError:
+        return send_error_response('Invalid data type for num question parameter')
+
+    answer_style = data['answer_style']
+    if answer_style not in ['all', 'multiple_choice', 'sentence']:
+        return send_error_response('answer style can only be of type "all", "multiple_choice" or "sentence".')
+
     model = load_model()
-    qa_pairs = get_qa(model, data['text'], int(data['num_questions']), data['answer_style'])
+    qa_pairs = get_qa(model, data['text'], num_questions, answer_style)
 
     return jsonify({'result': 'success', 'qa_pairs': qa_pairs})
 
