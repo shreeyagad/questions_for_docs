@@ -1,2 +1,6 @@
 env/
-indian_matchmaking.txt
+*.txt
+__pycache__/
+.vscode
+.DS_Store
+*.pyc

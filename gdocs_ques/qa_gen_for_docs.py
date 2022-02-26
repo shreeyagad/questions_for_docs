@@ -1,6 +1,6 @@
 import torch
-from questiongenerator import QuestionGenerator
-from questiongenerator import print_qa
+from .questiongenerator import QuestionGenerator
+from .questiongenerator import print_qa
 
 def load_model():
      return QuestionGenerator()
