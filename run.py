@@ -6,7 +6,7 @@ from gdocs_ques.qa_gen_for_docs import load_model, get_qa
 
 
 app = Flask(__name__)
-app.secret_key = '3cf156a6e05348bc93387228b70e56ab'
+app.secret_key = 'some_secret_key'
 
 
 def send_error_response(message):
