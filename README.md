@@ -1,6 +1,10 @@
 # QuizMe
 _A Google Docs add-on that empowers reading comprehension through generated quizzes._
 
+## Awards
+**Best Potential Hack @ HackNYU 2022**<br>
+**Best Use of Google Cloud @ HackNYU 2022**
+
 ## Inspiration
 Many teachers assign long readings to their students that are typically ungraded, so students can be tempted to skim through. This results in low memory retention and a poor understanding of the content. Quiz materials are a great solution but are difficult to find and do not always cover the content you’re interested in. That’s where QuizMe comes in, an easy-to-use, accessible tool that generates quizzes based on any text for students and teachers.
 
